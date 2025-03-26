@@ -48,15 +48,15 @@ You can install Postman via this website: https://www.postman.com/downloads/
     (You might want to use `cargo check` if you only need to verify your work without running the app.)
 
 ## Mandatory Checklists (Publisher)
--   [ ] Clone https://gitlab.com/ichlaffterlalu/bambangshop to a new repository.
+-   [x] Clone https://gitlab.com/ichlaffterlalu/bambangshop to a new repository.
 -   **STAGE 1: Implement models and repositories**
-    -   [ ] Commit: `Create Subscriber model struct.`
-    -   [ ] Commit: `Create Notification model struct.`
-    -   [ ] Commit: `Create Subscriber database and Subscriber repository struct skeleton.`
-    -   [ ] Commit: `Implement add function in Subscriber repository.`
-    -   [ ] Commit: `Implement list_all function in Subscriber repository.`
-    -   [ ] Commit: `Implement delete function in Subscriber repository.`
-    -   [ ] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
+    -   [x] Commit: `Create Subscriber model struct.`
+    -   [x] Commit: `Create Notification model struct.`
+    -   [x] Commit: `Create Subscriber database and Subscriber repository struct skeleton.`
+    -   [x] Commit: `Implement add function in Subscriber repository.`
+    -   [x] Commit: `Implement list_all function in Subscriber repository.`
+    -   [x] Commit: `Implement delete function in Subscriber repository.`
+    -   [x] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
 -   **STAGE 2: Implement services and controllers**
     -   [ ] Commit: `Create Notification service struct skeleton.`
     -   [ ] Commit: `Implement subscribe function in Notification service.`
@@ -77,6 +77,20 @@ This is the place for you to write reflections:
 ### Mandatory (Publisher) Reflections
 
 #### Reflection Publisher-1
+
+> Do we still need an interface (or trait in Rust) in this BambangShop case, or a single Model struct is enough?
+
+Untuk sekarang, kita tidak memerlukan interface (atau `trait` di Rust) karena observer yang ada di aplikasi ini hanya berupa satu class, yaitu `Subscriber` dengan data tetap (`url` dan `name`). Penggunaan dari `trait` baru akan diperlukan jika ada banyak tipe observer dengan perilaku berbeda.
+
+> Is using Vec (list) sufficient or using DashMap (map/dictionary) like we currently use is necessary for this case?
+
+Untuk menjaga keunikan `id` pada Product dan `url` pada Subscriber, menggunakan `DashMap` akan jauh lebih efisien daripada `Vec`. Seperti halnya `HashMap` di Java, `DashMap` yang menyimpan data dengan bentuk key-value pair menyediakan proses pencarian dengan waktu konstan, mempermudah query data, dan menjamin keunikan serta kinerja yang optimal. Jika kita hanya menggunakan vektor, maka kita akan memerlukan 2 vektor untuk menyimpan key serta related objectnya secara efisien. Walaupun begitu, proses query data akan tetap lebih sulit daripada menggunakan `DashMap`.
+
+> Do we still need DashMap or we can implement Singleton pattern instead?
+
+Pada aplikasi BambangShop ini, kita menggunakan multithreading yang dimana Map Subscriber akan diakses oleh banyak thread. Penggunaan `DashMap` akan sangat berguna pada kasus ini, karena `DashMap` dapat menyediakan sinkronisasi bawaan pada operasi read dan write pada kondisi yang memerlukan multithread seperti sekarang. Jadi, walaupun sudah ada singleton yang menjaga sifat single instance yang ada di aplikasi ini, penggunaan `DashMap` akan tetap diperlukan.
+
+<br>
 
 #### Reflection Publisher-2
 
