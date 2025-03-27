@@ -109,3 +109,17 @@ Saya sendiri sudah cukup familiar dengan penggunaan Postman sebagai tool yang bi
 <br>
 
 #### Reflection Publisher-3
+
+> Observer Pattern has two variations: Push model (publisher pushes data to subscribers) and Pull model (subscribers pull data from publisher). In this tutorial case, which variation of Observer Pattern that we use?
+
+Pada aplikasi BambangShop ini, variasi dari Observer yang digunakan adalah **Push model**, yang mana saat terjadi operasi atau event `create`, `delete`, dan `update` program akan memanggil `NotificationService` yang akan mengiterasi semua subscriber yang ada dan memberikan update terbaru kepada subscriber-subscriber yang ditargetkan untuk mendapatkan notifikasi.
+
+
+> What are the advantages and disadvantages of using the other variation of Observer Pattern for this tutorial case? (example: if you answer Q1 with Push, then imagine if we used Pull)
+
+Jika variasi **Pull model** digunakan pada aplikasi BambangShop, maka data hanya akan dikirim pada saat subscriber membutuhkannya, bukan saat setiap kali ada produk yang ditambah. Tentu perubahan ini akan berdampak pada efisiensi aplikasi BambangShop, dimana kita tidak perlu menambah workload yang dilakukan oleh program pada setiap kali produk baru ditambahkan. Namun, sekarang pihak Subscriber harus mengambil dan menyeleksi data yang benar dan relevan untuknya karena publisher hanya mengirimkan notifikasi tanpa ada klasifikasi khusus untuk siapa dan apa. Hal ini tentu saja akan memindahkan sebagian kompleksitas program pada sisi Subscriber.
+
+
+> Explain what will happen to the program if we decide to not use multi-threading in the notification process.
+
+Jika aplikasi ini tidak mengimplementasikan multithreading untuk mengirimkan notifikasi ke subscriber, maka semua notifikasi yang dikirim akan dijalankan secara sekuensial pada satu thread. Hal ini akan mengakibatkan antrian yang panjang karena `NotificationService` perlu meng-notify tiap subscriber-nya satu per satu dan menambah beban server jika jumlah data dari subscriber sangat banyak.
