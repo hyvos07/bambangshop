@@ -58,12 +58,12 @@ You can install Postman via this website: https://www.postman.com/downloads/
     -   [x] Commit: `Implement delete function in Subscriber repository.`
     -   [x] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
 -   **STAGE 2: Implement services and controllers**
-    -   [ ] Commit: `Create Notification service struct skeleton.`
-    -   [ ] Commit: `Implement subscribe function in Notification service.`
-    -   [ ] Commit: `Implement subscribe function in Notification controller.`
-    -   [ ] Commit: `Implement unsubscribe function in Notification service.`
-    -   [ ] Commit: `Implement unsubscribe function in Notification controller.`
-    -   [ ] Write answers of your learning module's "Reflection Publisher-2" questions in this README.
+    -   [x] Commit: `Create Notification service struct skeleton.`
+    -   [x] Commit: `Implement subscribe function in Notification service.`
+    -   [x] Commit: `Implement subscribe function in Notification controller.`
+    -   [x] Commit: `Implement unsubscribe function in Notification service.`
+    -   [x] Commit: `Implement unsubscribe function in Notification controller.`
+    -   [x] Write answers of your learning module's "Reflection Publisher-2" questions in this README.
 -   **STAGE 3: Implement notification mechanism**
     -   [ ] Commit: `Implement update method in Subscriber model to send notification HTTP requests.`
     -   [ ] Commit: `Implement notify function in Notification service to notify each Subscriber.`
@@ -78,7 +78,7 @@ This is the place for you to write reflections:
 
 #### Reflection Publisher-1
 
-> Do we still need an interface (or trait in Rust) in this BambangShop case, or a single Model struct is enough?
+> Do we still need an interface (or `trait` in Rust) in this BambangShop case, or a single Model struct is enough?
 
 Untuk sekarang, kita tidak memerlukan interface (atau `trait` di Rust) karena observer yang ada di aplikasi ini hanya berupa satu class, yaitu `Subscriber` dengan data tetap (`url` dan `name`). Penggunaan dari `trait` baru akan diperlukan jika ada banyak tipe observer dengan perilaku berbeda.
 
@@ -93,5 +93,19 @@ Pada aplikasi BambangShop ini, kita menggunakan multithreading yang dimana Map S
 <br>
 
 #### Reflection Publisher-2
+
+> Why we need to separate “Service” and “Repository” from a Model?
+
+Pemisahan Service dan Repository dari Model adalah salah satu bentuk dalam menerapkan prinsip **Single Responsibility Principle**. Pemisahan tanggung jawab (separation of concerns) dapat menghasilkan kode yang modular dan lebih mudah untuk dipelihara, dimana `Repository` akan hanya bertugas untuk akses dan penyimpanan data, sementara `Service` menangani logika bisnis di aplikasi. Pemisahan ini juga memungkinkan masing-masing komponen dapat diuji (lewat unit testing ataupun functional testing nantinya) dan dikembangkan secara terpisah tanpa mengganggu fungsionalitas dari Model utama.
+
+> What happens if we only use the Model? How the interactions between each model (Program, Subscriber, Notification) affect the code complexity for each model?
+
+Jika kita hanya menggunakan Model, Model tersebut akan menerima banyak beban dan tanggung jawab sekaligus, mulai dari penyimpanan data hingga pengolahan logika. Hal ini dapat menyebabkan kode menjadi lebih kompleks, rentan terhadap bug, dan sulit dipelihara ketika terjadi perubahan fungsionalitas di dalam aplikasi. Interaksi antara model (seperti Program, Subscriber, Notification) juga menjadi saling bergantung dan bercampur-campur logika, sehingga menyebabkan coupling yang tinggi dan mengurangi fleksibilitas. Setiap kali terjadi perubahan pada salah satu, nantinya akan berdampak pada bagian yang lain juga, yang akhirnya meningkatkan kompleksitas secara keseluruhan.
+
+> Have you explored more about Postman? Tell us how this tool helps you to test your current work.
+
+Saya sendiri sudah cukup familiar dengan penggunaan Postman sebagai tool yang bisa digunakan untuk mencoba endpoints dari aplikasi web yang saya buat. Dengan Postman, saya bisa mencoba untuk mengirim berbagai jenis request (GET, POST, PUT, DELETE, dll.) dan langsung melihat response dari server. Integrasinya dengan koneksi lokal yang ada di workspace kita juga membantu saya dalam mencoba endpoint-endpoint dari aplikasi web saya pada tahap pengembangan (development). Fitur seperti environment variable, scripting untuk automated testing, dan koleksi request yang bisa saling dibagikan dalam bentuk JSON juga membuat Postman sangat berguna untuk pengerjaan proyek kelompok maupun proyek pribadi milik saya sendiri.
+
+<br>
 
 #### Reflection Publisher-3
